@@ -3,8 +3,8 @@
     import DonutCard from "$lib/DonutCard.svelte";
     import { data } from "./donutData";
 
-    let cancelled = $page.url.searchParams.has("cancelled");
-    let success = $page.url.searchParams.has("success");
+    let isCancelled = $page.url.searchParams.has("cancelled");
+    let isSuccess = $page.url.searchParams.has("success");
 </script>
 
 <main class="flex flex-col justify-center items-center h-screen p-4">
@@ -22,20 +22,20 @@
         <div class="flex-1 checkout-container">
             <form
                 action="?/checkout"
-                method="post"
+                method="POST"
                 class="flex flex-col items-center"
             >
-                <button class="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+                <button class="mt-10 px-4 py-2 bg-blue-500 text-white rounded-lg"
                     >Checkout</button
                 >
             </form>
 
-            {#if cancelled || success}
+            {#if isCancelled || isSuccess}
                 <div class="mt-4 text-center">
-                    {#if success}
-                        <h1 class="text-green-500">Success</h1>
+                    {#if isSuccess}
+                        <h1 class="text-green-500 text-lg">Thank you for buying our donut! Enjoy!</h1>
                     {:else}
-                        <h1 class="text-red-500">Why did you cancel?</h1>
+                        <h1 class="text-red-500 text-lg">Your transaction has been cancelled, try again.</h1>
                     {/if}
                 </div>
             {/if}

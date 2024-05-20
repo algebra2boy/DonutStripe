@@ -15,7 +15,12 @@ export const actions: Actions = {
             const session = await stripe.checkout.sessions.create({
                 line_items: [
                     {
-                        price: "price_1PHeDsGP3FtVPI2MtxTkn86d",
+                        price: "price_1PIJsrGP3FtVPI2MXr7hTvXr",
+                        quantity: 2,
+
+                    },
+                    {
+                        price: "price_1PIJtvGP3FtVPI2MbzBRKqTc",
                         quantity: 1
                     }
                 ],
@@ -26,13 +31,10 @@ export const actions: Actions = {
 
             url = session.url;
         } catch (e) {
-            console.log(e);
             throw error(500, "Failed to create checkout session")
         }
 
         if (url) {
-            console.log(url);
-
             throw redirect(303, url);
         }
     }

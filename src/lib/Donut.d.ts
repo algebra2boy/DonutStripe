@@ -9,6 +9,6 @@ export type Donut = {
 };
 
 export type CheckoutItem = {
-    id: string;
+    price: string;
     quantity: number;
 }

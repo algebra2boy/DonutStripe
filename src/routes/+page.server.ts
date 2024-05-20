@@ -10,20 +10,21 @@ const stripe = new Stripe(SECRET_STRIPE_KEY, {
 export const actions: Actions = {
     checkout: async ({ request }) => {
         let url: string | null;
-
+        
         try {
-            const session = await stripe.checkout.sessions.create({
-                line_items: [
-                    {
-                        price: "price_1PIJsrGP3FtVPI2MXr7hTvXr",
-                        quantity: 2,
 
-                    },
-                    {
-                        price: "price_1PIJtvGP3FtVPI2MbzBRKqTc",
-                        quantity: 1
-                    }
-                ],
+            const data = await request.formData();
+            
+            const line_items = [];
+
+            // data.entries returns an iterator of key, value pairs
+            // deconstruct key as price, and value as quantity 
+            for (const [price, quantity] of data.entries()) {
+                line_items.push({ price, quantity: Number(quantity) });
+            }
+    
+            const session = await stripe.checkout.sessions.create({
+                line_items,
                 mode: "payment",
                 success_url: `${request.headers.get("origin")}?success=true`,
                 cancel_url: `${request.headers.get("origin")}?cancelled=true`

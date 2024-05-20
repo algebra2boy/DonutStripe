@@ -36,7 +36,10 @@
 
                 <button
                     class="mt-10 px-4 py-2 bg-blue-500 text-white rounded-lg"
-                    type="submit">Checkout</button
+                    type="submit"
+                    disabled={$checkoutItem.length === 0}
+                    class:disabled={$checkoutItem.length === 0}
+                    >Checkout</button
                 >
             </form>
 
@@ -56,3 +59,9 @@
         </div>
     </div>
 </main>
+
+<style lang="postcss">
+    .disabled {
+        @apply bg-gray-400;
+    }
+</style>
